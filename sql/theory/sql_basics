@@ -28,16 +28,3 @@ Cardinality:
 	1:1 (the foreign key can be stored in any of the tables)
 	1:M (the foreign key can be stored on the many side)
 	M:N (A new table is created)
-	
-
-
-
-
-
-
-
-
-			
-
-
-24/4/26	
