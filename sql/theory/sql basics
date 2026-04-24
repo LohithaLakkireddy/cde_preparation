@@ -1,0 +1,43 @@
+SQL (Structured query language)
+
+Data – Data is an unprocessed set of inputs
+Information - information which causes us with answers to questions like who, when, what, where and so forth
+Knowledge - Union of data and information drives us to address the how question and take business choices. This is referred to as Knowledge.
+A Database is a shared collection of logically related data and description of these data, designed to meet the information needs of an organization.
+A Database Management System (DBMS) is a software system that enables users to define, create, maintain, and control access to the database. 
+Database Systems typically have high costs and require high-end hardware configurations.
+An Application Program communicates with a database by issuing an appropriate request (typically a SQL statement)
+
+
+Database Systems ensure data integrity through constraints which are used to restrict data that can be entered or modified in the database. 
+Database Systems offer three types of integrity constraints:
+		1.Entity Integrity (enforced through primary key)
+		2.Domain Integrity (enforced through data types, check constraint)
+		3.Referential Integrity (enforced through foreign key)
+	
+	*CANDIDATE KEY -column or set of columns which uniquely identify a records
+		-A relation can have multiple candidate keys
+	*PRIMARY KEY -Automatically creates unique,not null (often indexed)
+		-A relation can have only one primary key (If set of columns is present, it is known as composite primary key)
+	*UNIQUE KEY -distinct, allow multiple null values (mysql/oracle), behaviour may vary across databases.
+	*FOREIGN KEY -references to another table
+		-The foreign key column and the referenced column must have the same data type
+		-The foreign key column can have null values. Any non null value must have a matching record in referenced (parent) table
+		
+Cardinality:
+	1:1 (the foreign key can be stored in any of the tables)
+	1:M (the foreign key can be stored on the many side)
+	M:N (A new table is created)
+	
+
+
+
+
+
+
+
+
+			
+
+
+24/4/26	

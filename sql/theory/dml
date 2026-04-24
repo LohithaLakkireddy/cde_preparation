@@ -1,0 +1,97 @@
+DML COMMANDS:
+	1. INSERT
+		
+		It supports 3 types of syntaxes
+		1. INSERT INTO table_name VALUES(....)
+				- should specify values corresponding to each and every attribute without missing and in the same order
+				Ex: INSERT INTO FULLNAME VALUES("Emily","Thomas")
+		2. INSERT INTO table_name(attribute_names) VALUES(.....)
+				-Can leave out some columns if not required (for NULL and DEFAULT columns)
+				Ex: INSERT INTO FULLNAME (fname) VALUES ("Emily")
+		3. INSERT INTO table_name(....) SELECT QUERY
+
+		NOTE: 1.If the column is of type string/date time/character they need to be enclosed in single quotes (not double quotes)
+			  2.Multiple rows can be inserted through a single INSERT statement only when it is used with SELECT statement
+	
+	2. SELECT
+	
+		SELECT column_names FROM table_name
+		SELECT * FROM table_name (if all columns are required)
+		SELECT column_names FROM table_name WHERE _condition
+		
+		Here the illustrative algorithm is for each tuple t in table_name add t to the result
+		
+		Alias:
+			1. without AS keyword
+				Ex: SELECT Id EmpId, Name FROM Employee
+			2. with AS keyword
+				Ex: SELECT Id AS "EmpId", Name FROM Employee
+				NOTE: Here remember to use double quotes for alias , otherwise oracle database treates it as a string if it is inside single quotes
+		
+		DISTINCT:
+		    SELECT DISTINCT Dept FROM Employee
+			
+			Distinct can also be used with NULL columns to remove duplicate NULL values.
+			DISTINCT must be used immediately after SELECT. Any attempt to use it between columns will result in error.
+			Ex: SELECT Dept, DISTINCT Manager FROM EMPLOYEE (It will result in error
+			
+		NOTE: 1.Equal to operator cannot be used to check for NULL VALUES
+				Ex: SELECT ID, EName FROM Employee WHERE BONUS = NULL
+					-Here no rows will be displayed in the result
+				So, we use IS NULL operator to check NULL values in columns
+				
+			  2.IN NULL
+                If NULL is used with IN clause then the condition behavior is similar to = NULL (not is NULL). So, no rows will be selected
+				IN Clause will remove duplicates before executing the query (if any)
+				Ex: IN ('ETA','ETA')
+				
+			  3.Spaces in CHAR type
+				Leading spaces are not ignored for CHAR data type. If you use them you will not fetch any records.
+				Trailing spaces are ignored for CHAR data type.
+				Trailing spaces are not ignored for VARCHAR2 data type.
+				Leading spaces are not ignored for VARCHAR2 data type.
+				
+			  4.LIKE 
+				% (any number of characters)
+				_ (one character)
+				
+				Ex:SELECT ID, ENAME FROM Employee WHERE ENAME LIKE 'E%'
+				  
+				
+	IMPORTANT TOPIC:
+		Execution order:  F J W G H W S D O L
+		mnemonic :Friendly Jovial  Workers   Grow    Healthy  Wealthy Strawberries  Designed    On      Land
+					FROM	JOIN	WHERE	GROUPBY	  HAVING   WINDOW	SELECT		DISTINCT  ORDERBY	LIMIT
+			-SELECT must always be executed after the WHERE clause
+				Ex: SELECT EName FROM Employee WHERE Id=1
+					-Here the filtering needs to happen on an Id column which is not included in the SELECT clause. 
+					Unless SELECT executes after WHERE this functionality cannot be supported.
+			-DISTINCT removes duplicates based on all columns of the SELECT clause
+			-Thus DISTINCT is dependent on SELECT clause and it's execution must happen after SELECT clause.
+			-WINDOW is not always part of standard order (depends on DB)
+			
+	3. UPDATE
+	
+		SYNTAX: UPDATE table_name SET _attribute =new_value
+				UPDATE table_name SET attribute1 =new_value, attribute2=new_value WHERE condition
+				
+		NOTE:1. The UPDATE statement fails if the same column is updated multiple times in the same statement.
+				Ex: UPDATE Employee SET SALARY = 100, SALARY = 200 WHERE ID = 1
+			 2. All columns in a table including the PRIMARY KEY can be updated using UPDATE statement.
+				Ex: UPDATE Employee SET ID = 6 WHERE ID = 5
+			 3. Foreign key can be updated, but:
+					-New value must exist in parent table
+					-Or constraint must allow it
+	
+		
+	4. DELETE
+	
+		DELETE FROM table_name (deletes all records)
+		DELETE FROM table_name WHERE condition
+		TRUNCATE TABLE table_name
+		
+		NOTE: TRUNCATE statement can also be used to delete data from tables. 
+			  TRUNCATE statement deletes all records from the table as it does not support WHERE clause. 
+			  TRUNCATE statement is a faster option compared to DELETE when you have to delete all records from the table.
+			  Any attempt to delete a record that violates the foreign key results in a failure.
+			  

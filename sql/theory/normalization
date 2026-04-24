@@ -1,0 +1,57 @@
+NORMALIZATION: 
+	-When databases are designed and used, they need to be checked for the possibility 
+	of several issues such as inconsistency, redundancy and uncertainty
+	-Data redundancy occurs when the same data is multiplied across the database and can be found repeated 
+	in an unnecessary form. This leads to more disk space to store data than actual required.
+		Ex: In a retail outlet relation, the id and location are repeating for many records
+	NORMALIZATION is the process of reorganizing data in a database to ensure that there is no data redundancy 
+	and data dependencies are logical
+	
+	Understanding FUNCTIONAL DEPENDENCY:
+		A functional dependency X → Y means:
+			-If two rows have same X, they must have same Y
+		Functional Dependencies in DBMS is a relation between two or more attributes. 
+		It can be categorized as -
+		-Fully Functional Dependency (key->non-key)
+		-Partial Dependency (part of key -> non-key)
+		-Transitive Dependency (non-key -> non-key)
+		NOTE: key attribute (attribute which is unique ex: primary key, composite key ..)
+		      non-key attribute (not unique)
+			  
+	DEPENDENCY IN A RELATION:
+		-An attribute of a relation can be determined by knowing one/more attributes of the same relation
+		-The attribute which determines the value of other attributes is known as “Determinant” and the attribute determined is "Dependant"
+	If functional dependencies are not properly defined, the databases may suffer from the following anomalies.
+		-Update/Modification anomalies – if data is inconsistently stored, it can lead to update anomalies
+		-Deletion anomalies – when a row is deleted that may contain attributes that shouldn't be deleted
+		-Insert anomalies - Occurs when certain data cannot be inserted without adding unrelated data
+	Normalization is a method to remove all these anomalies and bring the database to a consistent state.	
+	Functional dependencies may lead to anomalies. To minimize anomalies there is a need to refine functional dependencies using Normalization.	
+	
+	
+	NORMAL FORMS: (1 nf,2nf,3nf,bcnf(boyce-codd nf),5nf,6nf..)
+		1 NF: All the attributes should be atomic,there should not be any multi-valued attributes.
+		2 NF: Already in 1 NF, there is no partial dependency which exists between non-key and key attributes.
+		3 NF: Already in 2 NF, there is no transitive dependency which exists between key attributes and non-key attributes through other non-key attributes.
+		
+		
+	Ex: University enrollment
+	
+		| StudentID | StudentName | CourseID | CourseName | Instructor | InstructorPhone | Dept |
+		| --------- | ----------- | -------- | ---------- | ---------- | --------------- | ---- |
+		| S101      | Ravi        | C01      | DBMS       | Kumar      | 999111          | CSE  |
+		| S101      | Ravi        | C02      | OS         | Sharma     | 888222          | CSE  |
+		| S102      | Sita        | C01      | DBMS       | Kumar      | 999111          | CSE  |
+		| S103      | Arun        | C03      | Math       | Reddy      | 777333          | MATH |
+		
+		Here, (StudentID, CourseID) is a composite-key
+		dependencies:   StudentID → StudentName
+						CourseID → CourseName, Instructor, Dept
+						Instructor → InstructorPhone
+						
+		Issues: partial and transitive dependencies
+		tables: Student(StudentID, StudentName)
+				Course (CourseID, CourseName, Instructor, Dept)
+				Instructor(Instructor, InstructorPhone)
+				Enrollment(StudentID, CourseID)
+				

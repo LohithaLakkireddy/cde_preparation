@@ -1,0 +1,73 @@
+DDL COMMANDS:
+	1.CREATE 
+	
+		CREATE TABLE table_name(
+		attribute1 data_type,	
+		attribute2 data_type CONSTRAINT contraint_name PRIMARY KEY,                		
+		attribute3 data_type CONSTRAINT contraint_name REFERENCES table_name(primary_key)); 
+
+		Classification of constraints (NOT NULL, PRIMARY KEY, CHECK, UNIQUE, FOREIGN KEY):
+			Single column constraint (applies on single column)
+			composite contsraint  (applies on multiple columns)
+			column level constraint (specified with column defnition)
+			table level constraint (specified after column defnition)
+		
+		NOTE: 1.NOT NULL can only be treated as column level constraint
+			  2.constaint_name is optional
+			  3.CHECK constraint is used to limit the values that can be specified for a column.
+					-CHECK constaint allows null values even if it not specified
+					-commonly used operators with check constaint are IN, LIKE, BETWEEN, AND, OR, NOT, >, < etc..
+					Ex: CHECK(GENDER IN('M','F')), still it allows null value.
+			  4.UNIQUE constaint on column ensures no two rows have same value (can allow NULL values)
+			  
+		
+		Ex: CREATE TABLE Student(
+				ID INTEGER PRIMARY KEY, 
+				NAME VARCHAR2(10) NOT NULL,
+				DOJ DATE DEFAULT SYSDATE,
+				GENDER CHAR(1) CONSTRAINT student_gender_ck CHECK(GENDER IN('M','F')),
+				CONTACT NUMBER UNIQUE
+				);
+			
+			CREATE TABLE Marks ( 
+				CourseId INTEGER CONSTRAINT marks_cid_pk PRIMARY KEY, 
+				ID INTEGER CONSTRAINT marks_sid_fk REFERENCES Student(StudentId), 
+				MarksScored DECIMAL(5,2));
+				
+			NOTE: It creates table only if it does not exist in the database
+				  2 columns cannot have same name
+				  use CONSTRAINT keyword only if you are giving a name.
+	
+	2.  DROP 
+	
+		DROP TABLE table_name;  
+		Ex: DROP TABLE Student;    (removes an existing table from a database)
+		
+		DROP TABLE table_name CASCADE CONSTRAINTS;
+		Here CASCADE CONSTRAINTS clause should be added to drop all referential integrity 
+		constraints that refer to primary and unique keys in table												
+		So, all parent tables are dropped before child tables
+		
+	3. ALTER
+		
+		a. Add a new column
+			ALTER TABLE table_name ADD column_name data_type
+		b. Modify an existing column
+			ALTER TABLE table_name MODIFY column_name data_type
+		c. Rename a column
+			ALTER TABLE table_name RENAME COLUMN column_name TO new_column_name
+		d. remove a column
+			ALTER TABLE table_name DROP (column_name)
+		e. Adding a constraint
+			ALTER TABLE table_name ADD CONSTRAINT std_sid PRIMARY KEY (column_name)
+		f. Dropping a constraint
+			ALTER TABLE table_name DROP constraint std_sid
+
+	4. TRUNCATE
+
+		TRUNCATE TABLE table_name
+		
+		NOTE: TRUNCATE statement can also be used to delete data from tables. 
+			  TRUNCATE statement deletes all records from the table as it does not support WHERE clause. 
+			  TRUNCATE statement is a faster option compared to DELETE when you have to delete all records from the table.
+			  Any attempt to delete a record that violates the foreign key results in a failure.

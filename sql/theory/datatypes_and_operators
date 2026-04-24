@@ -1,0 +1,52 @@
+Data types in SQL: character, integral, non-integral, miscellaneous
+	1. Character (2 types)
+		CHAR(n)- predetermined length (Also called CHARACTER(n))
+			- max. size: 2000 bytes
+		VARCHAR2(n) - varying length (maximum size=n) (Also called CHARACTER VARYING(n))
+			- varchar stores size of actual no of characters + fixed size to store length
+			- max. size: 4000 bytes
+			
+	2. Integral (3 types)
+		-SMALLINT
+		-INTEGER
+		-INT
+		
+	NOTE: SQL does not provide support for arbitrary length numbers like python, java etc..
+	
+	3. Non-Integral (Integral + fractional parts)
+		NUMBER(Precision, Scale)
+			precision - total number of significant digits
+			scale - total number of digits allowed after decimal point
+		Ex: NUMBER(3,1) (33.3)
+		NOTE: if precision and scale are not specified, then there will be no changes needed to the original number (ex: 123.29 , NUMBER)
+		Checking validity of a Number:
+			Ex: 121.79 
+				precision-scale=3,scale=2
+				so, the formats with precision-scale>=3 and scale>=2 will make the number valid
+				NUMBER(6,1), NUMBER(5,2) etc.. makes the given value valid
+	            If scale for the given format is less, we round off the given number
+				If precision-scale is less then it will result in error
+				Ex: NUMBER(4,2) will give error
+								
+	4. Miscellaneos
+		-DATE (DD-MON-YY) Ex: 02-JUN-17
+			-Using DATE type has many advantages. It checks for the validity of date. Thats why it is not feasible to use varchar for date formats
+		-TIMESTAMP (DD-MON-YY HR:MIN:SECONDS AM/PM) Ex: 02-JUN-19 18:30:378463 PM
+			-precision upto 9 digits of a second
+		-CLOB (Character Large Object) Storing large character based data which cannot be stored using VARCHAR2
+		-BLOB (Binary Large Object) Storing large binary data like movies, images etc..
+		
+Operators : Arithmetic, logical, comparision
+	1. Arithmetic: 
+		+,-,*,/
+	2. Comparison
+		=,<>,>,<,>=,<=
+		Range (BETWEEN <low> and <high>)
+		List (IN (List of values))  (If IN clause has duplicates then database server will remove duplicates before executing query)
+		Patterns (LIKE)
+		NULL  (IS NULL)
+	NOTE: Assignment and equality check operators, both are same (=) in SQL unline java(= assignment and ==equality check)
+	3. Logical
+		-And (returns true if both are true)
+		-or (returns true if either is true)
+		-not (returns true if condition is false)

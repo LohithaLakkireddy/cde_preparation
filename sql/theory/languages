@@ -1,0 +1,20 @@
+DDL - Data defnition language (CREATE, ALTER, DROP, TRUNCATE)
+    CREATE   - used to create new database, schema and tables
+	ALTER    - used to modify existing database objects
+	DROP     - used to delete existing database objects completely
+	TRUNCATE - used to delete rows from the table without deleting the table
+	
+DML - Data manipulation language (INSERT, UPDATE, DELETE, SELECT)
+    INSERT - used to add new records to a table
+	UPDATE - modify exisiting records in a table
+	DELETE - used to remove records from a table
+	SELECT - used to select some or all columns (retrive data)
+	
+DCL - Data control language (GRANT, REVOKE)
+    GRANT  - allow access to a database
+	REVOKE - withdraw access to a database (unauthorized access)
+	
+TCL - Transaction control language (COMMIT, ROLLBACK)
+	A transaction is a group of one or more sql statements executed as a unit.
+    COMMIT   - save database changes and end transaction
+    ROLLBACK - undo changes that are not committed and end transaction

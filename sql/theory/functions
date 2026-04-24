@@ -1,0 +1,79 @@
+SQL functions:
+
+	Commonly used built-in functions:
+		Numeric functions, Character functions, Conversion functions, Date functions, Aggregate functions, Miscellaneous functions
+		
+	Single row functions: 
+		-operates on single row and returns single row
+		-used in classes: SELECT,WHERE,ORDER BY and HAVING
+		
+	Multi row functions:
+		-operates on multiple rows and returns single row
+		- used in classes: SELECT, ORDERBY and HAVING
+		
+	NOTE:1.Numeric functions are single row functions that accept a numeric value and return numeric output.
+				ABS(value), ROUND(value,digits), CEIL(value), FLOOR(value)
+			
+		2. Character functions work on character strings and can return a character string or a numeric value.
+				UPPER(value), LOWER(value), CONCAT(value1,value2), LENGTH(value)
+				
+			Concatenating string data:
+				Ex: SELECT City, Country, CONCAT(City, Country) "CONCAT", 
+					City || Country "ConcatByOperator", CONCAT(CONCAT(City, ', '), Country) "NestedConcat" FROM Weather;
+					
+				Substring function is used to extract part of a string. It has the following syntax SUBSTR(value, start_position, length)
+					Ex: SUBSTR('DATABASE',5)='BASE'  (indexing starts from 1 unlike programming languages)
+						SUBSTR('DATABASE',3,3)='TAB'
+						
+		3. 	Conversion functions:
+			-Use conversion functions to convert data from one format to another.
+				TO_CHAR(value,format) - Converts a number or a date to a string. Use this function for formatting dates and numbers.
+				TO_DATE(value,format)	Converts a string to a date.
+				TO_NUMBER(value,format)	Converts a string to a number.
+				
+			Extract date parts using TO_CHAR:
+			  Ex:SELECT RecordDate, TO_CHAR(RecordDate, 'mm') "MONTH", 
+				TO_CHAR(RecordDate, 'Month') "FULL_MONTH", 
+				TO_CHAR(RecordDate, 'dd') "DAY", 
+				TO_CHAR(RecordDate, 'Day') "FULL_DAY" FROM Weather;
+		
+		4. Date functions:
+			Database provides functions to determine the current time and to perform date operations like adding a specific duration to a date, finding time difference between two dates etc.
+				SYSDATE: Returns current date of System i.e. the host on which database server is installed.
+				SYSTIMESTAMP: Returns current timestamp of the System.
+				ADD_MONTHS(date, n): Adds n months to the given date.
+				MONTHS_BETWEEN(date1,date2): Finds difference between two dates in months.
+				
+		5. Aggregate functions 
+			Operate on multiple rows to return a single row. 
+			Some aggregate functions like SUM (total), AVG (average) operates only on numeric columns while others like MIN (lowest value), MAX (highest value) and COUNT (number of rows) operate on all data types. 
+			All aggregate functions ignore NULL values except COUNT(*).
+			
+			Use DISTINCT with COUNT function to get a count of unique values for a column. 
+			Similary DISTINCT can also be used with other aggregate functions.
+				Ex: SELECT COUNT(Dept) Count1, COUNT(DISTINCT Dept) Count2 FROM Employee
+				
+		6. Miscellaneous functions
+			NVL(value1, value2) -Substitutes value1 by value2 if value1 is NULL. The data type of value1 and value2 must be same.
+			USER -Returns the current logged in user
+			
+			
+		CASE Statement:
+			CASE statement can be used in SELECT clause to conditionally assign values to a computed attribute. 
+			It can also be used with WHERE, GROUP BY etc. CASE statement has two different syntax styles: Simple CASE expression and Searched CASE expression. 
+			Both of them are similar to if else statement in Java.
+			
+			1. Simple CASE expression:
+					CASE Designation
+						WHEN 'SE' THEN 1
+						WHEN 'SSE' THEN 2
+						ELSE 3
+					END alias   (Here alias is the new name for the column if required)
+					
+			2. Searched CASE expression:
+					CASE
+						WHEN Marks>=85 THEN 'Excellent'
+						WHEN Marks>=65 THEN 'Good'
+						ELSE 'Poor'
+					END
+			NOTE: ELSE is optional. If ELSE is omitted and no condition is true, then NULL is returned by CASE.
